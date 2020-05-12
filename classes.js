@@ -100,6 +100,45 @@ class ProgressiveManager extends Manager {
     this.title = "Not a manager";
     this.bonus = 0;
   }
+  
+  hire(){
+    super.hire()
+    // this.reports.push(employee)
+    
+    const reportsLength = this.reports.length
+    
+    if(reportsLength > 100){
+      this.title = "Bestest Manager"
+    } else if(reportsLength > 50) {
+      this.title = "Manager Plus"
+    } else if(reportsLength > 10) {
+      this.title = "Manager"
+    } else if(reportsLength > 3) {
+      this.title = "Mostly Manager"
+    } else if(reportsLength > 0) {
+      this.title = "Barely Manager"
+    }
+  }
+
+  fire(){
+    super.fire()
+
+    const reportsLength = this.reports.length
+
+    if(reportsLength > 100) { 
+      this.title = "Bestest Manager"
+    } else if(reportsLength > 50) {
+      this.title = "Manager Plus"
+    } else if(reportsLength > 10) {
+      this.title = "Manager"
+    } else if(reportsLength > 3) {
+      this.title = "Mostly Manager"
+    } else if(reportsLength > 0) {
+      this.title = "Barely Manager"
+    }
+    
+    this.bonus += 100 
+  }
 }
 
 ////////// PROBLEM 4 - Black Diamond //////////
@@ -125,4 +164,26 @@ class ProgressiveManager extends Manager {
         - The anonymous function should decrease wear_and_tear_count by 10, and set needs_reboot to false
 */
 
-//Code Here
+class Machine {
+  constructor(){
+    this.widgets_made_count = 0;
+    this.wear_and_tear_count = 0;
+    this.needs_reboot = false;
+  }
+
+  makeWidgets(num){
+    this.widgets_made_count += num
+    this.wear_and_tear_count = Math.floor(this.widgets_made_count / 50)
+  }
+
+  fixMachine(){
+    this.needs_reboot = true;
+  }
+
+  reboot(){
+    return () => {
+      this.wear_and_tear_count -= 10
+      this.needs_reboot = false
+    }
+  }
+}
